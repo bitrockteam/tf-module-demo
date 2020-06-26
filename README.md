@@ -9,25 +9,47 @@ for more details about pre-requisite , pls, check the PART I : https://github.co
 
 
 tf-module-demo/
+
 ├── environment
+
 │   ├── development
+
 │   │   ├── backend.config
+
 │   │   ├── development.tfvars
+
 │   │   ├── main.tf
+
 │   │   ├── outputs.tf
+
 │   │   └── variables.tf
+
 │   ├── production
+
 │   │   ├── backend.config
+
 │   │   ├── main.tf
+
 │   │   ├── outputs.tf
+
 │   │   ├── production.tfvars
+
 │   │   └── variables.tf
+
 │   └── testing
+
 │       ├── main.tf
+
 │       ├── testing.tfvars
+
 │       └── variables.tf
+
 ├── Makefile
+
 ├── modules
+
 │   └── common
+
 ├── README.md
+
 
