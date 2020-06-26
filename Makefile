@@ -24,8 +24,8 @@ init: check
 	@echo "Initializing the s3 backend..."
 	(cd environment/$(value ENV); terraform init -backend=true -backend-config=backend.config -force-copy) 
 
-	@echo "Creating the backend workspaces..."
-	@terraform workspace new $(value ENV)
+	@echo "Creating the backend workspaces by environment/directory"
+	(cd environment/$(value ENV); terraform workspace new $(value ENV))
 
 	@echo "Backends initialized"
 
@@ -36,12 +36,13 @@ plan: check
 	(cd environment/$(value ENV) ; terraform get)	
 
 	@echo "Switch to the [$(value ENV)] environment."
-	@terraform workspace select $(value ENV)
+	(cd environment/$(value ENV) ; terraform workspace select $(value ENV))
 
 	(cd environment/$(value ENV) ; terraform plan -var-file=$(value ENV).tfvars -out $(value ENV).plan)		
+
 apply: check
 	@echo "Swtiching to the [$(value ENV)] environment ..."
-	@terraform workspace select $(value ENV)
+	(cd environment/$(value ENV) ; terraform workspace select $(value ENV))
 	
 	@echo "Will be applying the following to [$(value ENV)] environment:"
 	(cd environment/$(value ENV) ; terraform show $(value ENV).plan)
@@ -50,12 +51,11 @@ apply: check
 
 destroy: check
 	@echo "Switching to the [$(value ENV)] environment ..."
-	@terraform workspace select $(value ENV)
+	(cd environment/$(value ENV); terraform workspace select $(value ENV))
 	@echo "Are you really sure you want to completely destroy [$(value ENV)] environment ?"
 	@read -p "Press enter to continue"
 
 	(cd environment/$(value ENV); terraform destroy -var-file=$(value ENV).tfvars)
         
 	@echo "Deleting the backend workspaces...[$(value ENV)]"
-	@terraform workspace select default
-	@terraform workspace delete $(value ENV) 
+	(cd environment/$(value ENV) ; terraform workspace select default ; terraform workspace delete $(value ENV) )
