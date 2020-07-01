@@ -1,7 +1,6 @@
-UNAME:=$(shell uname)
 TERRAFORM_VERSION="0.12.25"
 TF_VERSION=`terraform -v | head -1 | awk -F "v" '{print $2}'`
-
+	
 default:
 
 	@echo "Creates a TF system from a template."
@@ -38,8 +37,8 @@ plan: check
 	@echo "Switch to the [$(value ENV)] environment."
 	(cd environment/$(value ENV) ; terraform workspace select $(value ENV))
 
-	(cd environment/$(value ENV) ; terraform plan -var-file=$(value ENV).tfvars -out $(value ENV).plan)		
-
+	(cd environment/$(value ENV) ;terraform plan -var-file=$(value ENV).tfvars -var="aws_prefix=$(value ENV)" -out $(value ENV).plan) 
+		
 apply: check
 	@echo "Swtiching to the [$(value ENV)] environment ..."
 	(cd environment/$(value ENV) ; terraform workspace select $(value ENV))
