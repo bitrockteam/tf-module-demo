@@ -23,7 +23,7 @@ variable "aws_prefix" {
 variable "aws_region" {
   type        = string
   description = "Your AWS region"
-  default     = ""
+  default     = "us-west-1"
 }
 
 variable "vpc_name" {
