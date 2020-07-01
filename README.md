@@ -5,7 +5,7 @@ Here we define separated environments with independ remote s3 backend.
 This show of to automate this method using Makefile to deploy the backend, workspaces by environment.
 
 
-for more details about pre-requisite , pls, check the PART I : https://github.com/victorbecerragit/tf-demo
+for more details about pre-requisite , pls, check the PART I : https://github.com/bitrockteam/tf-demo-ws
 
 
 tf-module-demo/
